@@ -1,0 +1,97 @@
+title: "Github Pull Request Information [alpha]"
+summary: Use the Github API to fetch the title and labels of the PR that was just merged.
+description: |-
+  Use the Github API to fetch the title and labels of the PR that was just merged.
+
+  You will need to create an access token and place it in the .bitrise.secrets.yml file
+  https://github.com/settings/tokens
+website: https://github.com/philippelatulippe/step-pull-request-information
+source_code_url: https://github.com/philippelatulippe/step-pull-request-information
+support_url: https://github.com/philippelatulippe/step-pull-request-information/issues
+host_os_tags:
+  - osx-10.10
+project_type_tags: []
+type_tags:
+  - deploy
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+deps:
+  brew:
+  - name: git
+  - name: wget
+run_if: ""
+inputs:
+# user input
+  - github_username: ""
+    opts:
+      title: "Github username"
+      summary: ""
+      description: ""
+      is_expand: true
+      is_required: true
+      is_dont_change_value: false
+  - github_access_token: ""
+    opts:
+      title: "Github personal access token"
+      summary: ""
+      description: |-
+        [Generate the token on github](https://github.com/settings/tokens).
+      is_expand: true
+      is_required: true
+      is_dont_change_value: false
+# environment input
+  - commit_sha: "$BITRISE_GIT_COMMIT"
+    opts:
+      title: "Git commit sha for this build"
+      summary: ""
+      description: ""
+      is_expand: true
+      is_required: true
+      is_dont_change_value: false
+  - is_pr: "$PR"
+    opts:
+      title: "Is it a PR?"
+      summary: "true or false"
+      description: ""
+      is_expand: true
+      is_required: false
+      is_dont_change_value: false
+  - pull_request_id: "$BITRISE_PULL_REQUEST"
+    opts:
+      title: "Is it a PR?"
+      summary: "true or false"
+      description: ""
+      is_expand: true
+      is_required: false
+      is_dont_change_value: false
+  - github_repository_url: "$GIT_REPOSITORY_URL"
+    opts:
+      title: "Github repository URL."
+      summary: "Must be a *github* repository"
+      description: ""
+      is_expand: true
+      is_required: true
+      is_dont_change_value: false
+outputs:
+  - GPRI_PULL_REQUEST_TITLE:
+    opts:
+      title: "Title of the PR whose merge triggered the job"
+      summary: ""
+      description: ""
+  - GPRI_OTHER_PULL_REQUEST_TITLES:
+    opts:
+      title: "Title of recent merged PR titles, excluding the current one, separated by line breaks"
+      summary: ""
+      description: ""
+  - GPRI_PULL_REQUEST_LABELS:
+    opts:
+      title: "Colon-separated list of PR labels"
+      summary: ""
+      description: "This script won't work properly if your github labels contain colons"
+  - GPRI_PULL_REQUEST_NUMBER:
+    opts:
+      title: "PR number. Unlike BITRISE_PULL_REQUEST, this variable will be set when merging"
+      summary: ""
+      description: ""
+
