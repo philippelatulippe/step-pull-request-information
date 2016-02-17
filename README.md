@@ -4,6 +4,14 @@ Use the Github API to fetch the title and labels of the PR that was just merged.
 
 Use case: Generate a change log for deployment; change deployment method based on label
 
+The following variables are exported to the environment:
+
+* GPRI_PULL_REQUEST_NUMBER: PR number for the current commit
+* GPRI_PULL_REQUEST_TITLE
+* GPRI_OTHER_PULL_REQUEST_TITLES: Line-break separated list of pull request titles, excluding the current PR
+* GPRI_PULL_REQUEST_LABELS: Colon-separated (:) list of github issue labels
+
+
 ## How to use this Step
 
 Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
