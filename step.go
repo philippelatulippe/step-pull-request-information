@@ -197,6 +197,16 @@ func (githubClient *Github) fetchMergeEvents(username string, repository string)
 	if requestErr != nil {
 		logFail("Failed to fetch github events: %s", requestErr)
 	}
+
+	if response.StatusCode != 200 {
+		if response.ContentLength == 0 {
+			logFail("HTTP error %s", response.Status)
+		} else {
+			var v map[string]interface{}
+			json.NewDecoder(response.Body).Decode(&v)
+			logFail("HTTP error %s; error message: %s", response.Status, v["message"])
+		}
+	}
 	
 	decoder := json.NewDecoder(response.Body)
 
