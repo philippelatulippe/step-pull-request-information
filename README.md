@@ -14,6 +14,22 @@ The following variables are exported to the environment:
 
 ## How to use this Step
 
+### On bitrise.io
+
+Bitrise doesn't support adding or configuring third-party steps directly. In
+the workflow editor, go to the "bitrise.yml" tab and add the step like this:
+
+    - git::https://github.com/philippelatulippe/step-pull-request-information.git@master:
+        title: Fetch Pull Request information
+        inputs:
+        - github_username: philippelatulippe1
+
+Then add a secret variable `github_access_token` with your github access token,
+which you can create on the following page:
+https://github.com/settings/tokens
+
+#### On the command line
+
 Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
 just `git clone` this repository, `cd` into it's folder in your Terminal/Command Line
 and call `bitrise run test`.
